@@ -15,7 +15,8 @@ public class VectorClock implements Serializable {
 
     private static final Logger LOGGER = LogManager.getLogger(VectorClock.class);
 
-    private final Map<String, Long> clocks;
+    private final String key;
+    private final Map<String, Long> clocks = new HashMap<>();
 
     /**
      * Construct the vectorClock initializing it.
@@ -23,7 +24,7 @@ public class VectorClock implements Serializable {
      * @param key
      */
     public VectorClock(String key) {
-        this.clocks = new HashMap<>();
+        this.key = key;
         initialize(key);
     }
 
@@ -69,26 +70,14 @@ public class VectorClock implements Serializable {
      * <p>All registers in the other vectorClock are inserted in this clock if they did not exists.
      * <p>If the register exist, the biggest value between the two registers is updated in this vectorClock.
      *
-     * @param key
      * @param vectorClock
      */
-    public void update(String key, VectorClock vectorClock) {
-        update(vectorClock);
-        increment(key);
-    }
-
-    /**
-     * Update this vectorClock with the information from the clock parameter (other vectorClock).
-     * <p>All registers in the other vectorClock are inserted in this clock if they did not exists.
-     * <p>If the register exist, the biggest value between the two registers is updated in this vectorClock.
-     *
-     * @param vectorClock
-     */
-    void update(VectorClock vectorClock) {
+    public void update(VectorClock vectorClock) {
         vectorClock.clocks.forEach((key, tack) -> {
             Long tick = getTick(key);
             clocks.put(key, (tick > tack ? tick : tack));
         });
+        increment(key);
 
         LOGGER.info("VectorClock updated: {}", this);
     }

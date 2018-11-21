@@ -37,6 +37,20 @@ public class VectorClockTest {
     }
 
     @Test
+    void shouldHaveValueAndIncrementedOnUpdateVectorClock() {
+        VectorClock clockA = new VectorClock("A");
+        VectorClock clockB = new VectorClock("B");
+
+        clockA.increment("A");
+        clockB.increment("B");
+
+        clockA.update(clockB); // A is updated by B
+
+        Assertions.assertEquals(new Long("2"), clockA.getTick("A"));
+        Assertions.assertEquals(new Long("1"), clockA.getTick("B"));
+    }
+
+    @Test
     void shouldIdentifyHappenedBefore() {
         VectorClock clockA = new VectorClock("A"); // A:0
         VectorClock clockB = new VectorClock("B"); // B:0

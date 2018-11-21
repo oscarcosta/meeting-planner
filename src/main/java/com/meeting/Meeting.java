@@ -64,7 +64,7 @@ public class Meeting implements Serializable {
         int concurrency = this.vectorClock.compare(meeting.vectorClock);
         if (concurrency <= 0) {
             this.dayOfWeek = meeting.dayOfWeek;
-            this.vectorClock.update(user, meeting.vectorClock);
+            this.vectorClock.update(meeting.vectorClock);
 
             LOGGER.info("Meeting updated: {}", this);
         } else {
