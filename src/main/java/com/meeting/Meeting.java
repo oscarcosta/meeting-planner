@@ -56,37 +56,15 @@ public class Meeting implements Serializable {
     }
 
     /**
-     * Update this meeting and vectorClock from the received meeting only if
-     * this meeting happened before the other meeting.
+     * Updates this meeting and vectorClock from the received meeting considering the concurrency.
      *
      * @param meeting
      */
     public void update(Meeting meeting) {
-        update(meeting, false);
-    }
-
-
-    /**
-     * (Always) Update this meeting and vectorClock from the received meeting.
-     *
-     * @param meeting
-     */
-    public void updateConcur(Meeting meeting) {
-        update(meeting, true);
-    }
-
-    /**
-     * Updates this meeting and vectorClock from the received meeting considering the concurrency.
-     * <p> If both meetings are concurrent, only update when 'concurrent' flag is true.
-     *
-     * @param meeting
-     * @param concurrent
-     */
-    private void update(Meeting meeting, boolean concurrent) {
         int concurrency = this.vectorClock.compare(meeting.vectorClock);
-        if (concurrency < 0 || concurrent) {
+        if (concurrency <= 0) {
             this.dayOfWeek = meeting.dayOfWeek;
-            this.vectorClock.update(meeting.vectorClock);
+            this.vectorClock.update(user, meeting.vectorClock);
 
             LOGGER.info("Meeting updated: {}", this);
         } else {

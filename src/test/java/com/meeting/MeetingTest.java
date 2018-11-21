@@ -52,25 +52,13 @@ public class MeetingTest {
 
         meetingA.update(DayOfWeek.MONDAY);  // A selected MONDAY
         meetingB.update(DayOfWeek.SUNDAY);  // B selected SUNDAY
-        meetingB.updateConcur(meetingA);    // B received MONDAY from A
+        meetingB.update(meetingA);    // B received MONDAY from A
 
         Assertions.assertEquals(DayOfWeek.MONDAY, meetingB.getDayOfWeek()); // it was updated
     }
 
     @Test
-    public void shouldNotUpdateConcurrentlyMeeting() {
-        Meeting meetingA = new Meeting("A");
-        Meeting meetingB = new Meeting("B");
-
-        meetingA.update(DayOfWeek.MONDAY);  // A selected MONDAY
-        meetingB.update(DayOfWeek.SUNDAY);  // B selected SUNDAY
-        meetingB.update(meetingA);          // B received MONDAY from A
-
-        Assertions.assertNotEquals(DayOfWeek.MONDAY, meetingB.getDayOfWeek()); // it was NOT updated
-    }
-
-    @Test
-    public void shouldObeyEventsOrder() {
+    public void shouldObeyMeetingChoiceOrder() {
         Meeting meetingA = new Meeting("A");
         Meeting meetingB = new Meeting("B");
         Meeting meetingC = new Meeting("C");
@@ -84,12 +72,37 @@ public class MeetingTest {
 
         meetingC.update(DayOfWeek.FRIDAY);  // C select FRIDAY
         meetingA.update(meetingC);          // A received FRIDAY from C
-        meetingA.update(meetingB);          // A received WEDNESDAY from B
+
+        meetingA.update(meetingB);          // A received WEDNESDAY from B (problem?)
+
         meetingB.update(meetingC);          // B received FRIDAY from C
 
         Assertions.assertEquals(DayOfWeek.FRIDAY, meetingA.getDayOfWeek()); // it has the last event
         Assertions.assertEquals(DayOfWeek.FRIDAY, meetingB.getDayOfWeek());
         Assertions.assertEquals(DayOfWeek.FRIDAY, meetingC.getDayOfWeek());
+    }
+
+    @Test
+    public void shouldObeyMeetingChoiceOrder2() {
+        Meeting meetingA = new Meeting("A");
+        Meeting meetingB = new Meeting("B");
+        Meeting meetingC = new Meeting("C");
+
+        meetingA.update(DayOfWeek.MONDAY);  // A selected MONDAY
+        meetingB.update(meetingA);          // B received MONDAY from A
+        meetingC.update(meetingA);          // C received MONDAY from A
+
+        meetingB.update(DayOfWeek.WEDNESDAY);   // B select WEDNESDAY
+        meetingC.update(meetingB);              // C received WEDNESDAY from B
+
+        meetingC.update(meetingA);  // C received MONDAY from A (problem?)
+        meetingB.update(meetingA);  // C received MONDAY from A (problem?)
+
+        meetingA.update(meetingB);  // A received FRIDAY from B
+
+        Assertions.assertEquals(DayOfWeek.WEDNESDAY, meetingA.getDayOfWeek());
+        Assertions.assertEquals(DayOfWeek.WEDNESDAY, meetingB.getDayOfWeek());
+        Assertions.assertEquals(DayOfWeek.WEDNESDAY, meetingC.getDayOfWeek());
     }
 
 }
