@@ -73,11 +73,12 @@ public class VectorClock implements Serializable {
      * @param vectorClock
      */
     public void update(VectorClock vectorClock) {
+        increment(key);
+
         vectorClock.clocks.forEach((key, tack) -> {
             Long tick = getTick(key);
             clocks.put(key, (tick > tack ? tick : tack));
         });
-        increment(key);
 
         LOGGER.info("VectorClock updated: {}", this);
     }
@@ -100,7 +101,7 @@ public class VectorClock implements Serializable {
             LOGGER.info("VectorClock {} 'Happened Before' VectorClock {}.", this, vectorClock);
             return -1;
         } else if (!thisHappenedBefore && thatHappenedBefore) {
-            LOGGER.info("VectorClock {} 'Happened After' VectorClock {}.", this, vectorClock);
+            LOGGER.info("VectorClock {} 'NOT Happened Before' VectorClock {}.", this, vectorClock);
             return 1;
         }
         LOGGER.info("VectorClock {} and VectorClock {} are 'Concurrent'.", this, vectorClock);
@@ -120,10 +121,10 @@ public class VectorClock implements Serializable {
         for (Map.Entry<String, Long> entry : vcY.getClocks().entrySet()) {
             Long tick = vcX.getTick(entry.getKey());
             Long tack = entry.getValue();
-            if (tick > tack) {
+            if (tick > tack) { // for all z entries, VC(x)z <= VC(y)z
                 greater = true;
             }
-            if (tick < tack) {
+            if (tick < tack) { // at least one z entry is VC(x)z < VC(y)z
                 smaller = true;
             }
         }

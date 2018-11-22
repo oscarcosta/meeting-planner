@@ -60,16 +60,17 @@ public class Meeting implements Serializable {
      *
      * @param meeting
      */
-    public void update(Meeting meeting) {
-        int concurrency = this.vectorClock.compare(meeting.vectorClock);
-        if (concurrency <= 0) {
+    public boolean update(Meeting meeting) {
+        if (this.vectorClock.compare(meeting.vectorClock) <= 0) {
             this.dayOfWeek = meeting.dayOfWeek;
             this.vectorClock.update(meeting.vectorClock);
 
             LOGGER.info("Meeting {} updated from another meeting", this);
-        } else {
-            LOGGER.warn("Meeting not updated due to concurrency!");
+            return true;
         }
+
+        LOGGER.warn("Meeting not updated!");
+        return false;
     }
 
     public DayOfWeek getDayOfWeek() {
