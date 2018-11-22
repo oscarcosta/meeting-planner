@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="1203.5" y="211.5">com.meeting.clock.VectorClock</node>
+    <node x="103.5" y="1290.5">com.meeting.remote.SchedulerRemote</node>
+    <node x="79.0" y="878.5">com.meeting.remote.SchedulerService</node>
+    <node x="1575.5" y="1104.5">com.meeting.remote.Schedule</node>
+    <node x="559.0" y="491.5">com.meeting.Scheduler</node>
+    <node x="977.0" y="517.5">com.meeting.MeetingPlanner</node>
+    <node x="1549.5" y="652.5">com.meeting.Meeting</node>
+    <node x="577.0" y="730.5">com.meeting.SchedulerCallback</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.meeting.Scheduler" target="com.meeting.Meeting">
+      <point x="0.0" y="-68.5" />
+      <point x="720.0" y="80.0" />
+      <point x="1666.6666666666667" y="80.0" />
+      <point x="-13.333333333333258" y="-107.5" />
+    </edge>
+    <edge source="com.meeting.remote.SchedulerService" target="com.meeting.remote.SchedulerRemote">
+      <point x="-161.0" y="0.0" />
+      <point x="0.0" y="960.0" />
+      <point x="0.0" y="1320.0" />
+      <point x="-136.5" y="0.0" />
+    </edge>
+    <edge source="com.meeting.MeetingPlanner" target="com.meeting.Scheduler">
+      <point x="-143.0" y="0.0" />
+      <point x="161.0" y="0.0" />
+    </edge>
+    <edge source="com.meeting.Meeting" target="com.meeting.clock.VectorClock">
+      <point x="-40.0" y="-107.5" />
+      <point x="1640.0" y="160.0" />
+      <point x="1320.0" y="160.0" />
+      <point x="0.0" y="-68.5" />
+    </edge>
+    <edge source="com.meeting.MeetingPlanner" target="com.meeting.remote.SchedulerService">
+      <point x="0.0" y="-42.5" />
+      <point x="1120.0" y="40.0" />
+      <point x="280.0" y="40.0" />
+      <point x="40.0" y="-81.5" />
+    </edge>
+    <edge source="com.meeting.remote.SchedulerService" target="com.meeting.Scheduler">
+      <point x="80.0" y="-81.5" />
+      <point x="320.0" y="560.0" />
+      <point x="-161.0" y="0.0" />
+    </edge>
+    <edge source="com.meeting.remote.SchedulerService" target="com.meeting.remote.Schedule">
+      <point x="40.0" y="81.5" />
+      <point x="280.0" y="1160.0" />
+      <point x="-104.5" y="0.0" />
+    </edge>
+    <edge source="com.meeting.remote.SchedulerService" target="com.meeting.Meeting">
+      <point x="0.0" y="-81.5" />
+      <point x="240.0" y="0.0" />
+      <point x="1680.0" y="0.0" />
+      <point x="0.0" y="-107.5" />
+    </edge>
+    <edge source="com.meeting.SchedulerCallback" target="com.meeting.Meeting">
+      <point x="143.0" y="0.0" />
+      <point x="-130.5" y="0.0" />
+    </edge>
+    <edge source="com.meeting.remote.SchedulerRemote" target="com.meeting.remote.Schedule">
+      <point x="136.5" y="0.0" />
+      <point x="1680.0" y="1320.0" />
+      <point x="0.0" y="55.5" />
+    </edge>
+    <edge source="com.meeting.Scheduler" target="com.meeting.SchedulerCallback">
+      <point x="0.0" y="68.5" />
+      <point x="0.0" y="-29.5" />
+    </edge>
+    <edge source="com.meeting.MeetingPlanner" target="com.meeting.SchedulerCallback">
+      <point x="0.0" y="42.5" />
+      <point x="1120.0" y="746.6666666666666" />
+      <point x="143.0" y="-13.333333333333371" />
+    </edge>
+    <edge source="com.meeting.remote.Schedule" target="com.meeting.Meeting">
+      <point x="104.5" y="0.0" />
+      <point x="1880.0" y="1160.0" />
+      <point x="1880.0" y="760.0" />
+      <point x="130.5" y="0.0" />
+    </edge>
+    <edge source="com.meeting.remote.SchedulerService" target="com.meeting.SchedulerCallback">
+      <point x="120.0" y="-81.5" />
+      <point x="360.0" y="760.0" />
+      <point x="-143.0" y="0.0" />
+    </edge>
+    <edge source="com.meeting.MeetingPlanner" target="com.meeting.Meeting">
+      <point x="143.0" y="0.0" />
+      <point x="1560.0" y="560.0" />
+      <point x="-120.0" y="-107.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.3543554006968642" x="22.82436347922203" y="659.9027261546759" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
