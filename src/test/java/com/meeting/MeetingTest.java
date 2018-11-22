@@ -96,7 +96,7 @@ public class MeetingTest {
         meetingC.update(meetingB);              // C received WEDNESDAY from B
 
         meetingC.update(meetingA);  // C received MONDAY from A (problem?)
-        meetingB.update(meetingA);  // C received MONDAY from A (problem?)
+        meetingB.update(meetingA);  // B received MONDAY from A (problem?)
 
         meetingA.update(meetingB);  // A received FRIDAY from B
 

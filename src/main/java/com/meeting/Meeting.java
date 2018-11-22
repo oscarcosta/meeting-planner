@@ -52,7 +52,7 @@ public class Meeting implements Serializable {
         this.dayOfWeek = dayOfWeek;
         this.vectorClock.increment(user);
 
-        LOGGER.info("Meeting updated: {}", this);
+        LOGGER.info("Meeting {} updated from dayOfWeek", this);
     }
 
     /**
@@ -66,7 +66,7 @@ public class Meeting implements Serializable {
             this.dayOfWeek = meeting.dayOfWeek;
             this.vectorClock.update(meeting.vectorClock);
 
-            LOGGER.info("Meeting updated: {}", this);
+            LOGGER.info("Meeting {} updated from another meeting", this);
         } else {
             LOGGER.warn("Meeting not updated due to concurrency!");
         }

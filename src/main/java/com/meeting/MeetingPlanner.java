@@ -65,6 +65,7 @@ public class MeetingPlanner implements SchedulerCallback {
         while (true) {
             Console console = System.console();
 
+            System.out.printf("\nCurrent meeting day: %s\n", meeting);
             String option = console.readLine("\nSelect an option:\n U = update meeting, Q = quit program\n");
             switch (option) {
                 case "u":
@@ -83,14 +84,14 @@ public class MeetingPlanner implements SchedulerCallback {
 
     private void updateMeeting(Console console) {
         try {
-            System.out.printf("Available participants: %s\n", Arrays.toString(scheduler.getParticipants()));
-            String participants = console.readLine("Select one or more participants (separated by space): ");
-
             System.out.printf("Current meeting day: %s\n", meeting);
             System.out.print("Available days: [1 = MONDAY, 2 = TUESDAY, 3 = WEDNESDAY, 4 = THURSDAY, 5 = FRIDAY, 6 = SATURDAY, 7 = SUNDAY]\n");
             int day = Integer.parseInt(console.readLine("Select a day: " ));
 
             meeting.update(day);
+
+            System.out.printf("Available participants: %s\n", Arrays.toString(scheduler.getParticipants()));
+            String participants = console.readLine("Select one or more participants (separated by space): ");
 
             scheduler.updateMeeting(meeting, participants.split("\\s+"));
             System.out.println("Update sent!");
